@@ -30,6 +30,22 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+
+    app.post('/toy' ,async(req,res)  =>{
+                const newToy = req.body;
+                console.log(newToy);
+
+
+    })
+
+
+
+
+
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
@@ -51,7 +67,7 @@ app.get('/',(req,res) => {
     res.send('Rhythmic music server is running')
 })
 
-
+j
 app.listen(port ,() => {
     console.log(`Rhythmic music melody is running on port: ${port}`);
 } )
