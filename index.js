@@ -31,10 +31,22 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+    const toyCollection = client.db('toyDB').collection('toy');
+
+    app.get('/toy',async(req,res) =>{
+       const cursor = toyCollection.find();
+       const result = await cursor.toArray();
+       res.send(result)
+    })
+
+
+
 
     app.post('/toy' ,async(req,res)  =>{
                 const newToy = req.body;
                 console.log(newToy);
+                const result = await toyCollection.insertOne(newToy);
+                res.send(result);
 
 
     })
@@ -51,7 +63,7 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
@@ -67,7 +79,7 @@ app.get('/',(req,res) => {
     res.send('Rhythmic music server is running')
 })
 
-j
+
 app.listen(port ,() => {
     console.log(`Rhythmic music melody is running on port: ${port}`);
 } )
