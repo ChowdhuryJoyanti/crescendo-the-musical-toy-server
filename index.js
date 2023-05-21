@@ -40,18 +40,13 @@ async function run() {
     })
 
 
-    app.get('/toys/:category',async(req,res) =>{
-      const category = req.params;
-      const query = {category};
-      console.log(category);
-       const cursor = toyCollection.find(query).project({name:1,photo:1,price:1,rating:1});
+    app.get('/toys/category',async(req,res) =>{
+      const category = req.query.category;
+      const query = {subCategory:category};
+       const cursor = toyCollection.find(query);
        const result = await cursor.toArray();
-       res.json(result)
+       res.send(result)
     })
-
-
-    
-
 
 
     app.post('/toy' ,async(req,res)  =>{
