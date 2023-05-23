@@ -61,6 +61,16 @@ async function run() {
     })
 
 
+
+    app.get('/searchToys', async(req,res)=>{
+          const query = req.query.text;
+          console.log(query);
+          const result =  await toyCollection.find( { 'name' : { '$regex' : query, '$options' : 'i' } } ).toArray();
+        
+          res.send(result)
+         
+    })
+
     app.post('/toy' ,async(req,res)  =>{
                 const newToy = req.body;
                 console.log(newToy);
